@@ -20,6 +20,8 @@ class FinatraAnonymousLatencyFilter extends SimpleFilter[Request, Response] with
     timer.stop,
     request.method.toString().toLowerCase,
     request.host.getOrElse("unknown"),
+    // request.path may contain ids (when implementing the http rest api in http routes), so consider looking at
+    // https://github.com/full360/prometheus_client_scala/blob/master/client-finatra/src/main/scala/com/full360/prometheus/http/finatra/Finatra.scala
     request.path,
     response.map(_.getStatusCode()).getOrElse(500)
   )
